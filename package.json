@@ -1,5 +1,5 @@
 {
-  "name": "@iptv/playlist",
+  "name": "@tunarr/playlist",
   "description": "An extremely fast M3U playlist parser and generator for Node and the browser.",
   "version": "1.0.0",
   "license": "MIT",
