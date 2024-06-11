@@ -1,7 +1,7 @@
 #!/usr/bin/env -S ts-node --esm
 
-import { M3uPlaylist, writeM3U } from "../src/main.js";
 import argparse, { ArgumentParser } from "argparse";
+import { FakeM3uGenerator } from "./FakeM3uGenerator.js";
 
 /**
  * Generate a m3u playlist file with the given number of channels and optional headers
@@ -24,34 +24,10 @@ parser.add_argument("-H", "--headers", {
 });
 const { channels: numberOfChannels, headers } = parser.parse_args();
 
-const channelFactory = (count: number) => {
-  const channels: any = [];
-  for (let i = 0; i < count; i++) {
-    channels.push({
-      name: `Channel ${i}`,
-      url: `http://example.com/${i}`,
-      tvgName: `Channel ${i}`,
-      tvgId: `channel${i}.uk`,
-      tvgLogo: `http://example.com/${i}.png`,
-      groupTitle: `Group ${i}`,
-    });
-  }
-  return channels;
-};
-
-const channels = channelFactory(numberOfChannels);
-
-const playlist: M3uPlaylist = {
-  channels,
-};
-
-if (headers) {
-  playlist.headers = {
-    "x-tvg-url": "http://example.com/tvg.xml",
-  };
-}
-
-const playlistString = writeM3U(playlist);
+const playlistString = new FakeM3uGenerator().generate(
+  numberOfChannels,
+  headers
+);
 
 // @ts-ignore
 process.stdout.write(playlistString + "\n");

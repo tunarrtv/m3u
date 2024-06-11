@@ -1,18 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { parseM3U, writeM3U } from "../src/main";
-import fs from "node:fs";
-
-const fileAsString = fs.readFileSync(`./tests/fixtures/example.m3u8`, {
-  encoding: "utf-8",
-});
-
-const commentsFileAsString = fs.readFileSync(`./tests/fixtures/comments.m3u8`, {
-  encoding: "utf-8",
-});
-
-// const largePlaylist = fs.readFileSync(`./tests/fixtures/large.m3u8`, {
-//   encoding: "utf-8",
-// });
+import fs from "node:fs/promises";
+import { inspect } from "node:util";
 
 describe("Write a m3u file", () => {
   const example = {
@@ -124,7 +113,10 @@ describe("Write a m3u file", () => {
   });
 });
 
-describe("Parses a m3u file", () => {
+describe("Parses a m3u file", async () => {
+  const fileAsString = await fs.readFile(`./tests/fixtures/example.m3u8`, {
+    encoding: "utf-8",
+  });
   test("Fully parses to a JS object", () => {
     const parsed = parseM3U(fileAsString);
     expect(parsed).toMatchSnapshot();
@@ -341,7 +333,13 @@ describe("Parses a m3u file", () => {
     expect(channels[2].name).toBe("Channel 1 Duplicate");
   });
 
-  test("Handles comments in the playlist", () => {
+  test("Handles comments in the playlist", async () => {
+    const commentsFileAsString = await fs.readFile(
+      `./tests/fixtures/comments.m3u8`,
+      {
+        encoding: "utf-8",
+      }
+    );
     const parsed = parseM3U(commentsFileAsString);
 
     // Ensure the correct number of channels is parsed
@@ -812,5 +810,18 @@ describe("Parses a m3u file", () => {
 
     // Ensure the correct number of channels is parsed
     expect(parsed.channels.length).toBe(1);
+  });
+
+  test("Parses playlists with extension tags", async () => {
+    // const parsed = parseM3U(fileWithExtensions);
+    // console.log(parsed);
+    const fileWithExtensions = await fs.readFile(
+      "./tests/fixtures/extensions.m3u8",
+      {
+        encoding: "utf-8",
+      }
+    );
+    const parsed2 = parseM3U(fileWithExtensions);
+    console.log(inspect(parsed2, false, null));
   });
 });
