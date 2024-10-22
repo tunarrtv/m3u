@@ -1,5 +1,15 @@
 # @iptv/playlist
 
+## 1.1.0
+
+### Minor Changes
+
+- [`98065fa`](https://github.com/ektotv/playlist/commit/98065fa057fe4d33705538011a34f3a045b1b38e) Thanks [@chrisbenincasa](https://github.com/chrisbenincasa)! - Adds support for the tv-chno field
+
+### Patch Changes
+
+- [`1e38b6e`](https://github.com/ektotv/playlist/commit/1e38b6e3c56a7601540128d550ef9067888d3379) Thanks [@chrisbenincasa](https://github.com/chrisbenincasa)! - Export all types in generated declaration file
+
 ## 1.0.0
 
 ### Major Changes

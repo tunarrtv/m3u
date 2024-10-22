@@ -1,14 +1,15 @@
 import bench from "nanobench";
 import fs from "node:fs";
-import { parseM3U } from "../src/main.js";
+import { parseM3U as iptvOriginalParse } from "@iptv/playlist";
 import { files } from "../tests/fixtures/files.js";
 import { M3uParser } from "m3u-parser-generator";
 import ippParser from "iptv-playlist-parser";
+import { parseM3U } from "src/main.js";
 
 async function warmup() {
   console.log("Warming up...");
   let playlistString: string | null = fs.readFileSync(
-    `./tests/fixtures/c1_h.m3u8`,
+    `./tests/fixtures/small.m3u8`,
     {
       encoding: "utf-8",
     }
@@ -26,6 +27,21 @@ async function warmup() {
 warmup().then(() => {
   files.forEach((file) => {
     bench(`@iptv/playlist parsing: ${file}`, function (b: any) {
+      let playlistString: string | null = fs.readFileSync(
+        `./tests/fixtures/${file}`,
+        {
+          encoding: "utf-8",
+        }
+      );
+      b.start();
+
+      iptvOriginalParse(playlistString);
+
+      b.end();
+      playlistString = null;
+    });
+
+    bench(`@tunarr/playlist parsing: ${file}`, function (b: any) {
       let playlistString: string | null = fs.readFileSync(
         `./tests/fixtures/${file}`,
         {

@@ -1,0 +1,21 @@
+#EXTM3U url-tvg="http://localhost:8000/api/xmltv.xml" x-tvg-url="http://localhost:8000/api/xmltv.xml"
+#EXT-X-VERSION:3
+# random comment
+#EXT-X-MEDIA-SEQUENCE:0
+#EXT-X-ALLOW-CACHE:YES
+#EXT-X-TARGETDURATION:60
+#EXT-X-PLAYLIST-TYPE:VOD
+#EXT-X-INDEPENDENT-SEGMENTS
+
+#EXTINF:-1 tvg-id="1" tvg-name="Bones" tvg-chno="1" group-title="tv",Bones
+http://localhost:8000/channels/1/video
+#EXTINF:-1 tvg-id="2" tvg-name="Dynamic" tvg-chno="2" group-title="tv",Dynamic
+http://localhost:8000/channels/2/video
+#EXTINF:-1 tvg-id="3" tvg-name="All Offline" tvg-chno="3" group-title="tv",All Offline
+http://localhost:8000/channels/3/video
+#EXTINF:-1 tvg-id="4" tvg-name="Always Redirect" tvg-chno="4" group-title="tv",Always Redirect
+http://localhost:8000/channels/4/video
+#EXTINF:-1 tvg-id="5" tvg-name="Short Redirects" tvg-chno="5" group-title="tv",Short Redirects
+http://localhost:8000/channels/5/video
+#EXTINF:-1 tvg-id="6" tvg-name="Fast & Furious" tvg-chno="6" group-title="tunarr",Fast & Furious
+http://localhost:8000/channels/6/video

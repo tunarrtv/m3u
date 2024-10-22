@@ -9,7 +9,7 @@ import { M3uPlaylist } from "./types";
  *
  * @example
  * ```ts
- * import { writeM3U } from "@iptv/playlist";
+ * import { writeM3U } from "@tunarr/playlist";
  *
  * const playlist = {
  *   headers: {
@@ -41,7 +41,7 @@ function writeM3U(playlist: M3uPlaylist) {
   for (const channel of playlist.channels) {
     if (!channel.url) continue;
     m3u += "\n#EXTINF:";
-    m3u += channel?.duration ? channel.duration : "-1";
+    m3u += typeof channel?.duration !== "undefined" ? channel.duration : "-1";
     if (channel.tvgId) m3u += ` tvg-id="${channel.tvgId}"`;
     if (channel.tvgName) m3u += ` tvg-name="${channel.tvgName}"`;
     if (channel.tvgLanguage) m3u += ` tvg-language="${channel.tvgLanguage}"`;

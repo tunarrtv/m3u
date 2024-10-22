@@ -4,9 +4,13 @@ export type M3uHeaders = {
   urlTvg?: string;
 };
 
+// TODO: Add known
+export type M3uDirectives = Record<string, string>;
+
 export type M3uPlaylist = {
   channels: M3uChannel[];
   headers?: M3uHeaders;
+  directives?: M3uDirectives;
 };
 
 export type M3uChannel = {
